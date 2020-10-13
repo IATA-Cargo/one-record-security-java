@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html layout:decorate="~{fragments/main_layout}">
+<head>
+    <title>Profile - App X</title>
+</head>
+<body>
+		<div layout:fragment="content" class="container body-content" id="home-main-content">
+			
+			<div class="row" style="margin-top:15px;">
+			    <h2>Profile.</h2>
+			    <p>
+			        <br />
+			        <br />
+			        <!-- 
+			        Username: <strong>@Html.Raw(Model?.Username)</strong><br />
+			        Roles: <strong>@Html.Raw(Model?.Role)</strong><br />
+			        
+			        <br />
+			        
+			        Click <a href="/DownloadIndentity" target="_blank">Here</a> to download token.<br /> 
+			        -->
+			        Click <a th:href="@{'https://jwt.ms/#id_token=' + ${model.idToken}}" target="_blank">Here</a> to view the ID Token.
+			    </p>
+			</div>
+			
+		</div>
+</body>
+</html>

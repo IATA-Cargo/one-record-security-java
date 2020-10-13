@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html layout:decorate="~{fragments/main_layout}">
+<head>
+    <title>Api - App X</title>
+</head>
+<body>
+		<div layout:fragment="content" class="container body-content" id="home-main-content">
+			
+			<div class="row" style="margin-top:15px;" th:if="${model.verifyMessage == '' || model.verifyMessage == null}">
+	            <h2>You are authenticated.</h2>
+		        <p>
+		            The call to the API (<a th:href="${model.verifyUri}" th:text="${model.verifyUri}" target="_blank"></a>) is successful. <br /><br />
+		        </p>
+	        </div>
+	        
+			<div class="row" style="margin-top:15px;" th:if="${model.verifyMessage != '' && model.verifyMessage != null}">
+	            <h2>You are unauthenticated.</h2>
+		        <p>
+		            The call to the API (<a th:href="${model.verifyUri}" th:text="${model.verifyUri}" target="_blank"></a>) is false. <br /><br />
+		            <pre style="margin-top:15px;" th:text="${model.verifyMessage}"></pre>
+		        </p>
+	        </div>
+	        
+			<div class="row">
+			
+			    <div class="col-md-4 col-sm-12">
+			        <div class="panel panel-default">
+			            <div class="panel-heading">Api Request Headers</div>
+			            <div class="panel-body">
+			                <pre style="margin-top:15px;" th:text="${model.apiRequestHeaders}"></pre>
+			            </div>
+			        </div>
+			    </div>
+			
+			    <div class="col-md-4 col-sm-12">
+			        <div class="panel panel-default">
+			            <div class="panel-heading">Api Response</div>
+			            <div class="panel-body">
+			                <pre style="margin-top:15px;" th:text="${model.apiResponse}"></pre>
+			            </div>
+			        </div>
+			    </div>
+			
+			    <div class="col-md-4 col-sm-12">
+			        <div class="panel panel-default">
+			            <div class="panel-heading">Result Data</div>
+			            <div class="panel-body">
+			                <pre style="margin-top:15px;" th:text="${model.resultData}"></pre>
+			            </div>
+			        </div>
+			        <div class="panel panel-default">
+			            <div class="panel-heading">Authenticated Subject</div>
+			            <div class="panel-body">
+			                <pre style="margin-top:15px;" th:text="${model.authenticatedSubject}"></pre>
+			            </div>
+			        </div>
+			    </div>
+			
+			</div>
+			
+		</div>
+</body>
+</html>

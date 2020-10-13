@@ -1,0 +1,20 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          wiseid:
+            clientId: qamPrkVDftkbXbD8S79JaWDppZxd2Kpn
+            client-secret: rb5ntv88ybsPtkbhyx57Gwe50T4GSWd0
+            scope: openid, profile
+            redirect-uri: http://localhost:8080/sso_callback
+            client-name: wiseid
+            client-id: qamPrkVDftkbXbD8S79JaWDppZxd2Kpn
+            authorization-grant-type: authorization_code
+        provider:
+          wiseid:
+            issuer-uri: https://cidoidc.certifyiddemo.com
+            authorization-uri: https://cidoidc.certifyiddemo.com/index.php/auth
+            token-uri: https://cidoidc.certifyiddemo.com/index.php/token
+            jwk-set-uri: https://cidoidc.certifyiddemo.com/op/op.jwk
+            user-info-uri: https://cidoidc.certifyiddemo.com/index.php/userinfo
