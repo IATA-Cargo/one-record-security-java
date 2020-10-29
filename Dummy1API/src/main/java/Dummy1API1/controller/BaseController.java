@@ -146,12 +146,19 @@ public class BaseController {
 	
 	void ValidateIAP(String ski)
     {
+		/*
+             * This validation should be done by the service which implement OneRecord APIs.
+             * Please note that SKI often changes due to key rollover (rotation) of the IAP
+             */
+            return;
+		/*
 		List<TrustOidcIP> iapList = GetTrustIAPList();
 		for(TrustOidcIP iap : iapList){
 			if (iap.getIdentifier().equals(ski)) 
                 return;
 		}
         throw new UnauthorizedException("Untrusted IAP error.");
+		*/
     }
 	
 	private List<TrustOidcIP> trustIAPList = null;
