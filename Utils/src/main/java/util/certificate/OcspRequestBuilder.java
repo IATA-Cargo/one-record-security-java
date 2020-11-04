@@ -21,70 +21,68 @@ import java.security.cert.X509Certificate;
  * Class to help build Ocsp request
  */
 public class OcspRequestBuilder {
-	private static final SecureRandom GENERATOR = new SecureRandom();
+    private static final SecureRandom GENERATOR = new SecureRandom();
 
-	private SecureRandom generator = GENERATOR;
+    private SecureRandom generator = GENERATOR;
 
-	private DigestCalculator calculator = DigesterSHA1.sha1();
+    private DigestCalculator calculator = DigesterSHA1.sha1();
 
-	private X509Certificate certificate;
+    private X509Certificate certificate;
 
-	private X509Certificate issuer;
+    private X509Certificate issuer;
 
-	/**
-	 * Set certificate to builder
-	 * 
-	 * @param certificate main certificate
-	 * @return OcspRequestBuilder object
-	 */
-	OcspRequestBuilder certificate(X509Certificate certificate) {
-		this.certificate = certificate;
-		return this;
-	}
+    /**
+     * Set certificate to builder
+     *
+     * @param certificate main certificate
+     * @return OcspRequestBuilder object
+     */
+    OcspRequestBuilder certificate(X509Certificate certificate) {
+        this.certificate = certificate;
+        return this;
+    }
 
-	/**
-	 * Set the certificate of issuer to builder
-	 * 
-	 * @param issuer the certificate of issuer
-	 * @return OcspRequestBuilder object
-	 */
-	OcspRequestBuilder issuer(X509Certificate issuer) {
-		this.issuer = issuer;
-		return this;
-	}
+    /**
+     * Set the certificate of issuer to builder
+     *
+     * @param issuer the certificate of issuer
+     * @return OcspRequestBuilder object
+     */
+    OcspRequestBuilder issuer(X509Certificate issuer) {
+        this.issuer = issuer;
+        return this;
+    }
 
-	/**
-	 * ATTENTION: The returned {@link OCSPReq} is not re-usable/cacheable! It
-	 * contains a one-time nonce and CA's will (should) reject subsequent requests
-	 * that have the same nonce value.
-	 * 
-	 * @return the builded OCSPReq object
-	 * @throws org.bouncycastle.cert.ocsp.OCSPException
-	 * @throws java.io.IOException
-	 * @throws java.security.cert.CertificateEncodingException
-	 */
-	OCSPReq build() throws OCSPException, IOException, CertificateEncodingException {
-		SecureRandom generator = this.generator;
-		DigestCalculator calculator = this.calculator;
-		X509Certificate certificate = this.certificate;
-		X509Certificate issuer = this.issuer;
+    /**
+     *
+     *
+     * @return the builded OCSPReq object
+     * @throws org.bouncycastle.cert.ocsp.OCSPException
+     * @throws java.io.IOException
+     * @throws java.security.cert.CertificateEncodingException
+     */
+    OCSPReq build() throws OCSPException, IOException, CertificateEncodingException {
+        SecureRandom generator = this.generator;
+        DigestCalculator calculator = this.calculator;
+        X509Certificate certificate = this.certificate;
+        X509Certificate issuer = this.issuer;
 
-		BigInteger serial = certificate.getSerialNumber();
+        BigInteger serial = certificate.getSerialNumber();
 
-		CertificateID certId = new CertificateID(calculator, new X509CertificateHolder(issuer.getEncoded()), serial);
+        CertificateID certId = new CertificateID(calculator, new X509CertificateHolder(issuer.getEncoded()), serial);
 
-		OCSPReqBuilder builder = new OCSPReqBuilder();
-		builder.addRequest(certId);
+        OCSPReqBuilder builder = new OCSPReqBuilder();
+        builder.addRequest(certId);
 
-		byte[] nonce = new byte[8];
-		generator.nextBytes(nonce);
+        byte[] nonce = new byte[8];
+        generator.nextBytes(nonce);
 
-		Extension[] extensions = new Extension[] {
-				new Extension(OCSPObjectIdentifiers.id_pkix_ocsp_nonce, false, new DEROctetString(nonce)) };
+        Extension[] extensions = new Extension[] {
+                new Extension(OCSPObjectIdentifiers.id_pkix_ocsp_nonce, false, new DEROctetString(nonce)) };
 
-		builder.setRequestExtensions(new Extensions(extensions));
+        builder.setRequestExtensions(new Extensions(extensions));
 
-		return builder.build();
-	}
+        return builder.build();
+    }
 
 }

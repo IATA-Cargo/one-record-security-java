@@ -25,39 +25,40 @@ public class RestWrapper {
      * @param clientCertificate The client certificate send to server, pass null if not
      * @param password The password of client certificate
      * @return return a RestTemplate, other throws OidcException
-     * @throws OidcException
      */
     public RestTemplate createTemplate(KeyStore clientCertificate, String password) throws OidcException {
-    	
-    	try {
-    		
-	        RestTemplate restTemplate = new RestTemplate();
-	        
-	        if (clientCertificate != null) {
-	            
-	        	//TrustStrategy acceptingTrustStrategy = (cert, authType) -> true;
-	            HttpComponentsClientHttpRequestFactory requestFactory = null;
-	            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(new SSLContextBuilder()
-	                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-	                    .loadKeyMaterial(clientCertificate, password.toCharArray()).build(),
-	                        NoopHostnameVerifier.INSTANCE);
-	
-	            HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory)
-	                    .setMaxConnTotal(5)
-	                    .setMaxConnPerRoute(5)
-	                    .build();
-	      
-	            requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-	            requestFactory.setReadTimeout(10000);
-	            requestFactory.setConnectTimeout(10000);
-	
-	            restTemplate.setRequestFactory(requestFactory);
-	        }
-	        
-	        return restTemplate;
-    	} catch (Exception e) {
-			throw new OidcException("Can not create rest template", e);
-		}
+
+        try {
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            if (clientCertificate != null) {
+
+                HttpComponentsClientHttpRequestFactory requestFactory = null;
+                SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(new SSLContextBuilder()
+                        .loadTrustMaterial(null, new TrustSelfSignedStrategy())
+                        .loadKeyMaterial(clientCertificate, password.toCharArray()).build(),
+                            NoopHostnameVerifier.INSTANCE);
+
+                HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory)
+                        .setMaxConnTotal(5)
+                        .setMaxConnPerRoute(5)
+                        .build();
+
+                requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+                requestFactory.setReadTimeout(10000);
+                requestFactory.setConnectTimeout(10000);
+
+                restTemplate.setRequestFactory(requestFactory);
+            }
+
+            return restTemplate;
+        } catch (Exception e) {
+            if (clientCertificate != null){
+                throw new OidcException("Client certificate invalid", e);
+            }
+            throw new OidcException("Can not create rest template", e);
+        }
     }
     
     /**
@@ -69,11 +70,11 @@ public class RestWrapper {
      * @return Content of response body
      */
     public String request(RestTemplate restTemplate, String uri, HttpMethod method,  HttpEntity<?> entity) {
+
         ResponseEntity<String> response;
         response = restTemplate.exchange(uri, method, entity, String.class);
-        String strBody = response.getBody();
-        return strBody;
-        
+
+        return response.getBody();
     }
     
 }

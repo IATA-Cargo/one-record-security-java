@@ -6,28 +6,28 @@ package util.openidconnect;
  *
  */
 public class DiscoveryDocument {
-	
-	private String issuer;
-	private String jwks_uri;
-	private String authorization_endpoint;
-	private String token_endpoint;
+
+    private String issuer;
+    private String jwks_uri;
+    private String authorization_endpoint;
+    private String token_endpoint;
     private String raw;
     
     public String getIssuer() {
-		return this.issuer;
-	}
+        return this.issuer;
+    }
     
     public String getAuthorizationEndpoint() {
-		return this.authorization_endpoint;
-	}
+        return this.authorization_endpoint;
+    }
     
     public String getTokenEndpoint() {
-		return this.token_endpoint;
-	}
+        return this.token_endpoint;
+    }
     
     public String getJwksUri() {
-		return this.jwks_uri;
-	}
+        return this.jwks_uri;
+    }
     
     public String getRaw() {
         return raw;

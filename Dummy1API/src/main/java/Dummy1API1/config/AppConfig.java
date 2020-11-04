@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class AppConfig  extends WebSecurityConfigurerAdapter {
-	
-	@Override
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated().and()
@@ -29,7 +29,7 @@ public class AppConfig  extends WebSecurityConfigurerAdapter {
         return (UserDetailsService) username -> {
             return new User(username, "",
                     AuthorityUtils
-                            .commaSeparatedStringToAuthorityList("ROLE_USER"));
+                            .commaSeparatedStringToAuthorityList("USER"));
             
         };
     }

@@ -4,17 +4,29 @@ spring:
       client:
         registration:
           wiseid:
-            clientId: qamPrkVDftkbXbD8S79JaWDppZxd2Kpn
-            client-secret: rb5ntv88ybsPtkbhyx57Gwe50T4GSWd0
+            #clientId: qamPrkVDftkbXbD8S79JaWDppZxd2Kpn
+            #client-id: qamPrkVDftkbXbD8S79JaWDppZxd2Kpn
+            #client-secret: rb5ntv88ybsPtkbhyx57Gwe50T4GSWd0
+            #clientId: iata_partner_dev_app
+            #client-id: iata_partner_dev_app
+            #client-secret: SJnDanZtCNQQTZkM3roczrfNpkqNDXu7
+            clientId: iata_partner_nexshore_dev_app
+            client-id: iata_partner_nexshore_dev_app
+            client-secret: FrQOMyJJlzu5JizGP5VaVu3apACGElR3
             scope: openid, profile
             redirect-uri: http://localhost:8080/sso_callback
-            client-name: wiseid
-            client-id: qamPrkVDftkbXbD8S79JaWDppZxd2Kpn
+            client-name: IATA Partner Dev App
+
             authorization-grant-type: authorization_code
         provider:
           wiseid:
-            issuer-uri: https://cidoidc.certifyiddemo.com
-            authorization-uri: https://cidoidc.certifyiddemo.com/index.php/auth
-            token-uri: https://cidoidc.certifyiddemo.com/index.php/token
-            jwk-set-uri: https://cidoidc.certifyiddemo.com/op/op.jwk
-            user-info-uri: https://cidoidc.certifyiddemo.com/index.php/userinfo
+            #issuer-uri: https://cidoidc.certifyiddemo.com
+            #authorization-uri: https://cidoidc.certifyiddemo.com/index.php/auth
+            #token-uri: https://cidoidc.certifyiddemo.com/index.php/token
+            #jwk-set-uri: https://cidoidc.certifyiddemo.com/op/op.jwk
+            #user-info-uri: https://cidoidc.certifyiddemo.com/index.php/userinfo
+            issuer-uri: https://cidoidc.wisekeydemo.com
+            authorization-uri: https://cidoidc.wisekeydemo.com/index.php/auth
+            token-uri: https://cidoidc.wisekeydemo.com/index.php/token
+            jwk-set-uri: https://cidoidc.wisekeydemo.com/op/op.jwk
+            user-info-uri: https://cidoidc.wisekeydemo.com/index.php/userinfo

@@ -10,17 +10,17 @@ public class ResponseTokenInfo {
     private String raw;
     
     public ResponseTokenInfo() {
-    	 
+
     }
  
     public static ResponseTokenInfo FromJson(String jsonString) {
-    	
-    	if (Common.isStringEmpty(jsonString)) return null;
-    	
-    	ResponseTokenInfo data = Common.fromJson(ResponseTokenInfo.class, jsonString);
-    		
-		if (data != null) data.raw = jsonString;
-		return data;
+
+        if (Common.isStringEmpty(jsonString)) return null;
+
+        ResponseTokenInfo data = Common.fromJson(ResponseTokenInfo.class, jsonString);
+
+        if (data != null) data.raw = jsonString;
+        return data;
     }
  
     public String getIdToken() {
